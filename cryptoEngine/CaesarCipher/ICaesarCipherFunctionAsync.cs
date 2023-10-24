@@ -2,7 +2,7 @@
 
 namespace cryptoEngine.CaesarCipher;
 
-public interface ICaesarCipherFunction : IEncryptionFunction
+public interface ICaesarCipherFunctionAsync : IEncryptionFunctionAsync
 {
     
 }

@@ -2,11 +2,11 @@
 
 namespace cryptoEngine.CaesarCipher;
 
-public class CaesarCipherFunction : ICaesarCipherFunction
+public class CaesarCipherFunctionAsync : ICaesarCipherFunctionAsync
 {
     private IResources _resources;
     
-    public CaesarCipherFunction(IResources resources)
+    public CaesarCipherFunctionAsync(IResources resources)
     {
         _resources = resources;
     }

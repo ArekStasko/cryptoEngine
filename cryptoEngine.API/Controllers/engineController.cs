@@ -7,10 +7,12 @@ namespace cryptoEngine.API.Controllers;
 [ApiController]
 public class engineController : Controller
 {
+    private AsynchronousFunctionsResolver _asynchronousFunctionsResolver;
     private FunctionsResolver _functionsResolver;
     
-    public engineController(FunctionsResolver functionsResolver)
+    public engineController(AsynchronousFunctionsResolver asynchronousFunctionsResolver, FunctionsResolver functionsResolver)
     {
+        _asynchronousFunctionsResolver = asynchronousFunctionsResolver;
         _functionsResolver = functionsResolver;
     }
     
@@ -19,7 +21,7 @@ public class engineController : Controller
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
     public async Task<IActionResult> CaesarCipherEncrypt(string message)
     {
-        var function = _functionsResolver(FunctionsTypes.CaesarCipher);
+        var function = _asynchronousFunctionsResolver(FunctionsTypes.CaesarCipher);
         var result = await function.Encrypt(message);
         return Ok(result);
     }
@@ -29,7 +31,7 @@ public class engineController : Controller
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
     public async Task<IActionResult> CaesarCipherDecrypt(string message)
     {
-        var function = _functionsResolver(FunctionsTypes.CaesarCipher);
+        var function = _asynchronousFunctionsResolver(FunctionsTypes.CaesarCipher);
         var result = await function.Decrypt(message);
         return Ok(result);
     }
@@ -37,10 +39,20 @@ public class engineController : Controller
     [HttpGet(Name = "PolybiusChessboardEncrypt")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
-    public async Task<IActionResult> PolybiusChessboardEncrypt(string message)
+    public IActionResult PolybiusChessboardEncrypt(string message)
     {
         var function = _functionsResolver(FunctionsTypes.PolybiusChessboard);
-        var result = await function.Encrypt(message);
+        var result = function.Encrypt(message);
+        return Ok(result);
+    }
+    
+    [HttpGet(Name = "PolybiusChessboardDecrypt")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
+    public IActionResult PolybiusChessboardDecrypt(string message)
+    {
+        var function = _functionsResolver(FunctionsTypes.PolybiusChessboard);
+        var result = function.Decrypt(message);
         return Ok(result);
     }
 }

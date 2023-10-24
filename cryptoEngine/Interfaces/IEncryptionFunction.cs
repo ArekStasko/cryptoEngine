@@ -2,6 +2,6 @@
 
 public interface IEncryptionFunction
 {
-    Task<string> Encrypt(string messageToEncrypt);
-    Task<string> Decrypt(string messageToDencrypt);
+    string Encrypt(string messageToEncrypt);
+    string Decrypt(string messageToDencrypt);
 }

@@ -2,7 +2,7 @@
 
 namespace cryptoEngine.PolybiusChessboard;
 
-public interface IPolybiusChessboardFunction : IEncryptionFunction
+public interface IPolybiusChessboardFunctionAsync : IEncryptionFunction
 {
     
 }
